@@ -1,0 +1,4 @@
+Hello world from Java
+NetWorking labs are interesting
+Buffered streams make test IO easier
+this document contains 88 bytes in total.
