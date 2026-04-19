@@ -45,15 +45,25 @@ public class TcpClient {
                 writer.newLine();
                 writer.flush();
 
+                long totalRequestTime =0;
+                int requestCount=0;
+
                 for (String request : requests) {
                     logger.requestInfo(clientID, request);
+                    long reqStart= System.nanoTime();
                     writer.write(request);
                     writer.newLine();
                     writer.flush();
 
                     String response = reader.readLine();
+                    long reqEnd = System.nanoTime();
+                    totalRequestTime += (reqEnd - reqStart);
+                    requestCount++;
                     logger.responseInfo(clientID, response);
                 }
+
+                double avgTime = totalRequestTime / (requestCount * 1_000_000.0);
+                System.out.println("Client " + clientID + " average response time: " + avgTime + " ms");
             } catch (Exception e) {
                 logger.errorInfo(clientID, e.toString());
                 e.printStackTrace();
