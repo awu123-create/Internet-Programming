@@ -11,7 +11,7 @@ public class ConcurrentTester {
                 @Override
                 public void run() {
                     TcpClient client = new TcpClient();
-                    client.sendRequest(clientID);
+                    client.sendRequest(clientID, "10.42.0.1", 8000);
                 }
             }.start();
         }

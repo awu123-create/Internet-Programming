@@ -1,14 +1,18 @@
 package lab2.server;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.time.LocalDateTime;
 
 import lab2.common.log.ServerLogger;
 import lab2.common.model.Request;
 import lab2.common.model.Response;
-import lab2.common.protocol.*;
+import lab2.common.protocol.RequestParser;
+import lab2.common.protocol.ResponseBuilder;
 import lab2.common.service.CommandService;
-import java.io.*;
 
 public class ClientHandler implements Runnable {
     // 处理单个客户端的通信流程
@@ -37,7 +41,7 @@ public class ClientHandler implements Runnable {
                 logger.requestInfo(clientID, operation);
                 Request request = RequestParser.parser(operation);
                 if (request == null) {
-                    Response errorResponse = new Response("ERROR", "Invalid command format");
+                    Response errorResponse = new Response(Response.STATUSERR, "Invalid command format");
                     String errorResponseStr = ResponseBuilder.buildResponse(errorResponse);
                     writer.write(errorResponseStr);
                     writer.newLine();

@@ -3,10 +3,10 @@ package lab2.client;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.net.InetAddress;
-import java.net.Socket;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class TcpClient {
         return list;
     }
 
-    public void sendRequest(int clientID) {
+    public void sendRequest(int clientID,String serverIP, int serverPort) {
         Path path = Path.of("src/main/resources/lab2/testcases/testcase_" + clientID + ".txt");
         List<String> requests = sourceReader(path);
         String filepath = "logs/client-" + clientID + ".log";
@@ -36,7 +36,7 @@ public class TcpClient {
         try {
             logger = new ClientLogger(filepath);
 
-            try (Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 8000);
+            try (Socket socket = new Socket(InetAddress.getByName(serverIP), serverPort);
                     BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                     BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 

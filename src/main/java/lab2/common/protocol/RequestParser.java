@@ -4,7 +4,7 @@ import lab2.common.model.Request;
 
 public class RequestParser {
     public static Request parser(String operation){
-        String []contents = operation.split(":");
+        String []contents = operation.split(":",2);
         if(contents.length != 2){
             return null;
         }

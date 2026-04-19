@@ -8,20 +8,20 @@ public class CommandService {
         String command = request.getCommand();
         switch (command) {
             case "ECHO":
-                return new Response("OK", request.getContent());
+                return new Response(Response.STATUSOK, request.getContent());
             case "REVERSE":
                 String reversedString = new StringBuilder(request.getContent()).reverse().toString();
-                return new Response("OK", reversedString);
+                return new Response(Response.STATUSOK, reversedString);
             case "UPPER":
                 String upperString = request.getContent().toUpperCase();
-                return new Response("OK", upperString);
+                return new Response(Response.STATUSOK, upperString);
             case "LOWER":
                 String lowerString = request.getContent().toLowerCase();
-                return new Response("OK", lowerString);
+                return new Response(Response.STATUSOK, lowerString);
             case "EXIT":
-                return new Response("OK", "Connection closed.");
+                return new Response(Response.STATUSOK, "Connection closed.");
             default:
-                return new Response("ERROR", "Unknown command: " + command);
+                return new Response(Response.STATUSERR, "Unknown command: " + command);
         }
     }
 }
